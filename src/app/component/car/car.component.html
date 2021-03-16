@@ -1,0 +1,24 @@
+<table class="table caption-top">
+    <caption>Car List</caption>
+     <thead>
+         <tr>
+     <th>Id</th>      
+     <th>Brand</th>
+     <th>Color</th>
+     <th>Model Year</th>
+     <th>Daily Price</th>
+     
+         </tr>
+    
+     </thead>
+     <tbody>
+         <tr routerLink="cars/carDetails/{{car.carId}}" *ngFor="let car of cars">
+             <td>{{car.carId}}</td>
+             <td>{{car.brandName}}</td>
+             <td>{{car.colorName}}</td>
+             <td>{{car.modelYear}}</td>
+             <td>{{car.dailyPrice}}</td>
+         </tr>
+     </tbody>
+     
+ </table>

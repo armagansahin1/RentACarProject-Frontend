@@ -8,7 +8,9 @@ import { BrandService } from 'src/app/service/brand.service';
   styleUrls: ['./brand.component.css']
 })
 export class BrandComponent implements OnInit {
-  brands:Brand[]=[]
+  brands:Brand[]
+  currentBrand:Brand
+  removeBrand:Brand
   constructor(private brandService:BrandService) { }
 
   ngOnInit(): void {
@@ -19,4 +21,29 @@ export class BrandComponent implements OnInit {
      this.brands=response.data
    })
   }
+  setCurrentBrand(brand:Brand){
+    this.currentBrand=brand
+    console.log(this.currentBrand)
+    
+  }
+  getCurrentBrandClass(brand:Brand){
+    if(brand==this.currentBrand){
+      return "list-group-item list-group-item-action active";
+    }else{
+      return "list-group-item list-group-item-action";
+    }
+  }
+  getAllBrandsClass(){
+    if(!this.currentBrand){
+      return "list-group-item list-group-item-action active";
+    }else{
+      return "list-group-item list-group-item-action";
+    }
+  }
+  removeCurrentBrand(){
+    this.currentBrand=this.removeBrand
+    console.log(this.currentBrand)
+  }
+  
+  
 }

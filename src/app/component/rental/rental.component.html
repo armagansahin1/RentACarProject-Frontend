@@ -2,7 +2,7 @@
    <caption>Rental List</caption>
     <thead>
         <tr>
-           
+    <th>Id</th>      
     <th>First Name</th>
     <th>Last Name</th>
     <th>Company Name</th>
@@ -14,6 +14,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let rental of rentals">
+            <td>{{rental.rentalId}}</td>
             <td>{{rental.firstName}}</td>
             <td>{{rental.lastName}}</td>
             <td>{{rental.companyName}}</td>
