@@ -1,6 +1,7 @@
 import { CarImage } from "./carImage";
+import { Model } from "./model";
 
-export interface Car{
+export interface Car extends Model{
     carId:number;
     brandName:string;
     colorName:string;

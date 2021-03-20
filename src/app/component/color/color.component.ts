@@ -6,11 +6,13 @@ import { ColorService } from 'src/app/service/color.service';
   selector: 'app-color',
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.css']
+
 })
 export class ColorComponent implements OnInit {
   colors:Color[]=[]
   currentColor:Color
   removeColor:Color
+  filterText="";
   constructor(private colorService:ColorService) { }
 
   ngOnInit(): void {

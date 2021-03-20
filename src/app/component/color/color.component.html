@@ -1,6 +1,7 @@
+<input [(ngModel)]="filterText" type="text" class="form-control" id="filterText" placeholder="Mevcut Renkleri Ara...">
 <ul class="list-group">
 
-  <li (click)="removeCurrentColor()" routerLink=""  [class]="getAllColorsClass()">All Colors</li>
-  <li (click)="setCurrentColor(color)" routerLink="cars/color/{{color.colorId}}"  *ngFor="let color of colors" [class]="getCurrentColorClass(color)">{{color.colorName}}</li>
+  <li (click)="removeCurrentColor()" routerLink=""  [class]="getAllColorsClass()">Renkler</li>
+  <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.colorId}}"  *ngFor="let color of colors |colorPipe:filterText" [class]="getCurrentColorClass(color)">{{color.colorName}}</li>
     
   </ul>

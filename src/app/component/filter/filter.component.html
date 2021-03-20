@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <select [(ngModel)]="currentBrandId"  class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected disabled >Marka Seçin...</option>
+                
+                <option  [value]="brand.brandId"  *ngFor="let brand of brands ">{{brand.brandName}}</option>
+                
+              </select>
+        </div>
+        
+        <div class="col-md-4">
+          <select [(ngModel)]="currentColorId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option  selected disabled >Renk Seçin...</option>
+            <option [value]=color.colorId  *ngFor="let color of colors">{{color.colorName}}</option>
+            
+          </select>
+          </div>
+          
+          
+
+          <div class="btn-group col-md-4" role="group" aria-label="Basic mixed styles example">
+            
+            
+            <button routerLink="/cars/filter/{{currentBrandId}}/{{currentColorId}}"  type="button" class="btn btn-primary">Filtrele</button>
+            <button routerLink="cars" type="button" class="btn btn-warning">Temizle</button>
+          </div>
+    </div>
+
+</div>

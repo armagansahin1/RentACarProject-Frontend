@@ -1,24 +1,48 @@
-<table class="table caption-top">
-    <caption>Car List</caption>
-     <thead>
-         <tr>
-     <th>Id</th>      
-     <th>Brand</th>
-     <th>Color</th>
-     <th>Model Year</th>
-     <th>Daily Price</th>
-     
-         </tr>
-    
-     </thead>
-     <tbody>
-         <tr routerLink="cars/carDetails/{{car.carId}}" *ngFor="let car of cars">
-             <td>{{car.carId}}</td>
-             <td>{{car.brandName}}</td>
-             <td>{{car.colorName}}</td>
-             <td>{{car.modelYear}}</td>
-             <td>{{car.dailyPrice}}</td>
-         </tr>
-     </tbody>
-     
- </table>
+
+
+
+<input [(ngModel)]="filterText" type="text" class="form-control" id="filterText" placeholder="Mevcut Markaları Ara..."><br>
+ 
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor="let car of cars | carPipe:filterText" class="col">
+        <div class="card">
+          <img  src="{{urlPath}}/{{car.carImages[0].imagePath}}" height="200" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{car.brandName}}</h5>
+            
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <td>{{car.carId}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Marka</th>
+                        <td>{{car.brandName}}</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Renk</th>
+                        <td>{{car.colorName}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Model Yılı</th>
+                        <td>{{car.modelYear}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Günlük Kira Bedeli</th>
+                        <td>{{car.dailyPrice | currency:'TRY':'₺'}} </td>
+                    </tr>
+                    <tr>
+                        <button routerLink="/cars/car-details/{{car.carId}}" type="button" class="btn btn-warning">Detaylara Git</button>               
+                        <button type="button" class="btn btn-success">KİRALA</button>
+                    </tr>
+                </table>
+                
+          </div>
+        </div>
+      </div>
+  </div>
+

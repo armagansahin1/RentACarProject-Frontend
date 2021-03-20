@@ -1,4 +1,4 @@
-export interface Rental{
+export interface RentalDto{
     rentalId:number
     firstName:string;
     lastName:string;
