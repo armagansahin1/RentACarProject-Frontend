@@ -23,4 +23,9 @@ export class RentalService {
     
     return this.httpClient.post<ResponseModel>(newPath,rental)
   }
+
+  checkRentabilty(rental:Rental):Observable<ResponseModel>{
+    let newPath=this.apiUrl+"/checkrentability"
+    return this.httpClient.post<ResponseModel>(newPath,rental)
+  }
 }
