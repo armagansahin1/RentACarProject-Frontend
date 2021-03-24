@@ -1,12 +1,8 @@
-import { CarImage } from "./carImage";
-import { Model } from "./model";
-
-export interface Car extends Model{
-    carId:number;
-    brandName:string;
-    colorName:string;
-    modelYear:number;
-    dailyPrice:number;
-    carImages:CarImage[]
-    
+export interface Car{
+    carId?:number
+    brandId?:number 
+    colorId?:number 
+    modelYear?:number 
+    dailyPrice?:number
+    description?:string
 }

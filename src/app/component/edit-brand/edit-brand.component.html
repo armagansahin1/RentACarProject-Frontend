@@ -1,0 +1,44 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Brand Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let brand of brands">
+        <th scope="row">{{brand.brandId}}</th>
+        <td>{{brand.brandName}}</td>
+        <td><button type="button" class="btn btn-warning btn-sm" (click)="setCurrentBrandId(brand.brandId)" data-bs-toggle="modal" data-bs-target="#updateBrandModal">
+            Değiştir
+          </button></td>
+        <td><button type="button" (click)="delete(brand.brandName,brand.brandId)" class="btn btn-danger btn-sm">Sil</button></td>
+      </tr>
+      <tr>
+          <th></th>
+          <td><form [formGroup]="addBrandForm"><input class="form-controller" formControlName="brandName" type="text"></form></td>
+          <td><button type="button" (click)="add()"  class="btn btn-success btn-sm">Ekle</button></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <div class="modal fade" id="updateBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Marka ismini değiştir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="brandForm">
+                <input class="form-controller" formControlName="brandName" type="text">
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+          <button type="button"  (click)="update()" (click)="refresh()" class="btn btn-primary">Güncelle</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CarDetails } from 'src/app/models/carDetails';
 
-import { Car } from 'src/app/models/car';
+
 import { CarImage } from 'src/app/models/carImage';
 import { Customer } from 'src/app/models/customer';
 import { Rental } from 'src/app/models/rental/rental';
 
-import { CarService } from 'src/app/service/car.service';
+
 import { CardetailService } from 'src/app/service/cardetail.service';
 import { CustomerService } from 'src/app/service/customer.service';
+import { ImageService } from 'src/app/service/image.service';
 import { RentalService } from 'src/app/service/rental.service';
 
 @Component({
@@ -18,7 +20,7 @@ import { RentalService } from 'src/app/service/rental.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
-  cars: Car[];
+  carDetails:CarDetails[]
   customers: Customer[];
   currentCustomer: Customer;
   images: CarImage[];
@@ -28,13 +30,14 @@ export class CarDetailComponent implements OnInit {
   currentReturnDay: Date;
 
   constructor(
-    private carService: CarService,
+    
     private activatedRoot: ActivatedRoute,
     private router: Router,
     private carDetailService: CardetailService,
     private customerService: CustomerService,
     private rentalService: RentalService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private imageService:ImageService,
   ) {}
 
   ngOnInit(): void {
@@ -48,12 +51,12 @@ export class CarDetailComponent implements OnInit {
   }
 
   getCarDetail(carId: number) {
-    this.carService.getCarByCarId(carId).subscribe((response) => {
-      this.cars = response.data;
+    this.carDetailService.getCarByCarId(carId).subscribe((response) => {
+      this.carDetails = response.data;
     });
   }
   getCarImagesByCarId(carId: number) {
-    this.carDetailService.getCarImagesByCarId(carId).subscribe((response) => {
+    this.imageService.getCarImagesByCarId(carId).subscribe((response) => {
       this.images = response.data;
     });
   }
@@ -93,7 +96,7 @@ export class CarDetailComponent implements OnInit {
     let rentalToAdd: Rental = {
       returnDate: this.currentReturnDay,
       rentDate: this.currentRentDay,
-      carId: this.cars[0].carId,
+      carId: this.carDetails[0].carId,
       customerId: this.currentCustomer.customerId.valueOf(),
     };
      

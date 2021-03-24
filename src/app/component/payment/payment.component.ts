@@ -10,7 +10,8 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from 'src/app/service/payment.service';
 import { RentalService } from 'src/app/service/rental.service';
-import { DebitCard } from 'src/app/models/debitCard';
+
+import { CreditCard } from 'src/app/models/creditCard';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -19,6 +20,11 @@ import { DebitCard } from 'src/app/models/debitCard';
 export class PaymentComponent implements OnInit {
   paymentForm: FormGroup;
   rental: Rental;
+  years:number[]=[]
+  months:number[]=[]
+  selectedYear:number
+  selectedMonth:number
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -35,26 +41,26 @@ export class PaymentComponent implements OnInit {
         
       }
       this.createPaymentForm();
+      this.getDates();
     });
   }
   createPaymentForm() {
     this.paymentForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      password: ['', Validators.required],
+      
       ccv: ['', Validators.required],
-      expYear: ['', Validators.required],
+      expYear:['', Validators.required],
+      
       expMonth: ['', Validators.required],
       cardNumber: ['', Validators.required],
     });
   }
-  getRental(){
-    console.log(this.rental)
-  }
-  paymentAdd() {
+  
+  makeThePayment() {
     if (this.paymentForm.valid) {
-      let debitCardModel:DebitCard = Object.assign({}, this.paymentForm.value);
-      this.paymentService.verify(debitCardModel).subscribe((response => {
+      let creditCardModel:CreditCard = Object.assign({}, this.paymentForm.value);
+      this.paymentService.verify(creditCardModel).subscribe((response => {
         if(response.success){
           this.rentalService.addRent(this.rental).subscribe((response=>{
             if(!response.success){
@@ -72,8 +78,25 @@ export class PaymentComponent implements OnInit {
     }))
  }
  else{
-   this.toastrService.error("doğrulanamadı")
+   this.toastrService.error("Kredi Kartı Bilgileriniz Eksik !!!")
  }
 }
 
+
+getDates(){
+  
+  let currentYear=new Date().getFullYear()
+  for (let i = 0; i < 50; i++) {
+      this.years[i]=currentYear+i;    
+    
+  }
+  for (let i = 0; i < 12; i++) {
+    this.months[i]=i+1;
+    
+  }
+  
 }
+
+
+}
+

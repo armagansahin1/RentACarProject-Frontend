@@ -1,36 +1,51 @@
-<div class="content" id="debitCard">
-    <div class="cool-md-12">
-     <div class="card">
-         <div class="card-header"><h5 class="title">Kredi Kartı Bilgileri</h5></div>
-         <div class="card-body">
-             <form [formGroup]="paymentForm">
-                 <div class="mb-3">
-                     <div class="form-group">
-                     <label for ="firstName">Ad : </label>
-                     <input type="text" id="firstName" formControlName="firstName" class="form-control">
-                     <label for ="lastName">Soyad : </label>
-                     <input type="text" id="lastName" formControlName="lastName" class="form-control">
-                     <label for ="cardNumber">Kart Numarası : </label>
-                     <input type="number" id="cardNumber" formControlName="cardNumber" class="form-control">
-                     <label for ="passsword">Kart Şifresi : </label>
-                     <input type="text" id="password" formControlName="password" class="form-control">
-                     <label for ="ccv">CCV : </label>
-                     <input type="number" id="ccv" formControlName="ccv" class="form-control">
-                     <label for ="expYear">Yıl : </label>
-                     <input type="number" id="expYear" formControlName="expYear" class="form-control">
-                     <label for ="expMonth">Ay : </label>
-                     <input type="number" id="expMonth" formControlName="expMonth" class="form-control">
-                     </div>
-                 </div>
-                 
-                    <button class="btn btn-fill btn-primary" (click)="paymentAdd()">Ödemeyi Gerçekleştir</button>
-                
-             </form>
-         </div>
+
+
+<form [formGroup]="paymentForm" class="row g-3" >
+    <div class="col-md-4">
+      <label for="firtsName" class="form-label">Ad</label>
+      <input type="text" id="firstName" formControlName="firstName" class="form-control" >
+      
+    </div>
+    <div class="col-md-4">
+      <label for="lastName" class="form-label">Soyad : </label>
+      <input type="text" id="lastName" formControlName="lastName" class="form-control" >
+      
+    </div>
+    <div class="col-md-4">
+      <label for="ccv" class="form-label">CCV</label>
+      <input type="number" id="ccv" formControlName="ccv" class="form-control" >
         
-     </div>
+        
+        
+      
+    </div>
+    <div class="col-md-6">
+      <label for="cardNumber" class="form-label">Kart Numarası:</label>
+      <input type="number" class="form-control" id="cardNumber" formControlName="cardNumber">
+      
     </div>
 
+    <div class="col-md-3">
+        <label for="expYear" class="form-label">Yıl</label>
+        <input formControlName="expYear" type="number"   class="form-control" id="expYear" >
+          
+        
+       
+      </div>
+    
+      <div class="col-md-3">
+          <label for="expMonth" class="form-label">Ay</label>
+          <input formControlName="expMonth" type="number" class="form-control" id="expMonth" >
+          
+          
+      </div>
+  <div class="col-12">
+    <button class="btn btn-success" (click)="makeThePayment()">Ödemeyi Gerçekleştir</button>
+  </div>
+    
+  </form>
+  
 
-</div>
 
+
+  

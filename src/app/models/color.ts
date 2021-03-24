@@ -1,6 +1,6 @@
 
 
 export interface Color{
-    colorId:number
+    colorId?:number
     colorName:string
 }

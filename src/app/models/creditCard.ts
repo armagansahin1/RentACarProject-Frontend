@@ -1,7 +1,7 @@
-export interface DebitCard{
+export interface CreditCard{
 firstName:string
 lastName:string
-password:string
+
 ccv:number
 expYear:number
 expMonth:number

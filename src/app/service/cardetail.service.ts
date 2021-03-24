@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CarDetails } from '../models/carDetails';
 import { CarImage } from '../models/carImage';
+import { DataResponseModel } from '../models/dataResponseModel';
 import { ListResponseModel } from '../models/listResponseModel';
 
 @Injectable({
@@ -9,15 +11,28 @@ import { ListResponseModel } from '../models/listResponseModel';
 })
 export class CardetailService {
   apiUrl="https://localhost:44356/api/"
-
   constructor(private httpClient:HttpClient) { }
-  getCarImages():Observable<ListResponseModel<CarImage>>{
-    let newPath=this.apiUrl+"carimages/getall"
-    return this.httpClient.get<ListResponseModel<CarImage>>(newPath)
+  
+  getCars():Observable<ListResponseModel<CarDetails>>{
+    let newPath=this.apiUrl+"cars/getcardetails"
+    return this.httpClient.get<ListResponseModel<CarDetails>>(newPath)
+  }
+  getCarsByBrand(brandId:number):Observable<ListResponseModel<CarDetails>>{
+    let newPath=this.apiUrl+"cars/getcardetailsbybrandid?brandid="+brandId;
+    return this.httpClient.get<ListResponseModel<CarDetails>>(newPath);
+  }
+  getCarsByColor(colorId:number):Observable<ListResponseModel<CarDetails>>{
+    let newPath=this.apiUrl+"cars/getcardetailsbycolorid?colorid="+colorId;
+    return this.httpClient.get<ListResponseModel<CarDetails>>(newPath)
+  }
+  getCarByCarId(carId:number):Observable<ListResponseModel<CarDetails>>{
+    let newPath=this.apiUrl+"cars/getcardetailsbycarid?carid="+carId;
+    return this.httpClient.get<ListResponseModel<CarDetails>>(newPath)
   }
 
-  getCarImagesByCarId(carId:number):Observable<ListResponseModel<CarImage>>{
-    let newPath=this.apiUrl+"carimages/getbycarid?carid="+carId
-    return this.httpClient.get<ListResponseModel<CarImage>>(newPath)
+  getFilteredCars(brandId:number,colorId:number):Observable<ListResponseModel<CarDetails>>{
+    let newPath=this.apiUrl+"cars/getbybrandandcolor?brandId="+brandId+"&colorId="+colorId
+    return this.httpClient.get<ListResponseModel<CarDetails>>(newPath)
+    
   }
 }

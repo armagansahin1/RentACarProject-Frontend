@@ -1,0 +1,41 @@
+
+<div class="content">
+    <div class="cool-md-12">
+     <div class="modal-dialog">
+        <div class="modal-content">
+
+         <div class="modal-header"><h5 class="title">Araç Ekle</h5></div>
+         <div class="modal-body">
+             <form [formGroup]="carForm">
+                 <div class="mb-3">
+                     <div class="form-group">
+                     <label for ="brandId">Marka: </label>
+                     <select id="brandId" formControlName="brandId" class="form-control">
+                         <option [ngValue]=brand.brandId *ngFor="let brand of brands">{{brand.brandName}}</option>
+                     </select>
+                     <label for ="colorId">Renk : </label>
+                     <select id="colorId" formControlName="colorId" class="form-control">
+                        <option [ngValue]=color.colorId *ngFor="let color of colors">{{color.colorName}}</option>
+                    </select>
+                     <label for ="modelYear">Model Yılı : </label>
+                     <input type="number" id="modelYear" formControlName="modelYear" class="form-control">
+                     <label for ="dailyPrice">Günlük Kiralama Ücreti : </label>
+                     <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control">
+                     <label for ="description">Açıklama : </label>
+                     <input type="text" id="description" formControlName="description" class="form-control">
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                    <button class="btn btn-fill btn-success"  (click)="add()">Ekle</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                 </div>
+             </form>
+         </div>
+        
+     </div>
+    </div>
+</div>
+
+</div>
+
+

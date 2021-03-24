@@ -1,5 +1,7 @@
 <ul class="list-group">
+  
   <input [(ngModel)]="filterText" type="text" class="form-control" id="filterText" placeholder="Mevcut Markaları Ara...">
+  <button type="button" class="btn btn-dark" routerLink="/editBrands">Düzenle</button>
   <li *ngIf="!filterText" (click)="removeCurrentBrand()" routerLink="" [class]="getAllBrandsClass()"><b>Markalar</b></li>
     <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.brandId}}"  *ngFor="let brand of brands | brandPipe:filterText" [class]="getCurrentBrandClass(brand)">{{brand.brandName}}</li>
   </ul>
