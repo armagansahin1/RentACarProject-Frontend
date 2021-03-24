@@ -1,0 +1,44 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Renk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let color of colors">
+        <th scope="row">{{color.colorId}}</th>
+        <td>{{color.colorName}}</td>
+        <td><button type="button" class="btn btn-warning btn-sm" (click)="setCurrentColorId(color.colorId)" data-bs-toggle="modal" data-bs-target="#updateColorModal">
+            Değiştir
+          </button></td>
+        <td><button type="button" (click)="delete(color.colorName,color.colorId)" class="btn btn-danger btn-sm">Sil</button></td>
+      </tr>
+      <tr>
+          <th></th>
+          <td><form [formGroup]="addColorForm"><input class="form-controller" formControlName="colorName" type="text"></form></td>
+          <td><button type="button" (click)="add()"  class="btn btn-success btn-sm">Ekle</button></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <div class="modal fade" id="updateColorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Renk ismini değiştir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="colorForm">
+                <input class="form-controller" formControlName="colorName" type="text">
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+          <button type="button"  (click)="update()" (click)="refresh()" class="btn btn-primary">Güncelle</button>
+        </div>
+      </div>
+    </div>
+  </div>
