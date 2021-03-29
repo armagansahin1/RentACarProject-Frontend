@@ -6,4 +6,5 @@ export interface RentalDto{
     brandName:string;
     rentDate:Date;
     returnDate:Date;
+    payment:number
 }

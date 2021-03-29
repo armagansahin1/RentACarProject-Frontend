@@ -49,11 +49,15 @@ update(){
       this.toastrService.success("Marka ismi Güncellendi")
     },
     responseError=>{
-     if(responseError.error.ValidationErrors.length > 0) {
-       for(let i=0;i<responseError.error.ValidationErrors.length;i++) {
-         this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage)
-       }
-     }
+      if(responseError.error.Errors){
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+          this.toastrService.error(responseError.error.Errors[i].ErrorMessage)
+          
+        }
+      }
+      this.toastrService.error(responseError.error.message)
+      
+     
     }
     )
   }else{
@@ -62,17 +66,22 @@ update(){
 }
 add(){
   
-  let brandModel:Brand=Object.assign({},this.addBrandForm.value)
+  
   if(this.addBrandForm.valid){
+    let brandModel:Brand=Object.assign({},this.addBrandForm.value)
     this.brandService.add(brandModel).subscribe(response=>{
       this.toastrService.success("Marka eklendi")
     },
     responseError=>{
-     if(responseError.error.ValidationErrors.length > 0) {
-       for(let i=0;i<responseError.error.ValidationErrors.length;i++) {
-         this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage)
-       }
-     }
+      if(responseError.error.Errors){
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+          this.toastrService.error(responseError.error.Errors[i].ErrorMessage)
+          
+        }
+      }
+      this.toastrService.error(responseError.error.message)
+      
+     
     }
     )
   }else{

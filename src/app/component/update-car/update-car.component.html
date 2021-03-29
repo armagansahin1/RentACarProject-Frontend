@@ -1,70 +1,67 @@
-<div class="content">
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Marka</th>
-            <th scope="col">Renk</th>
-            <th scope="col">Model Yılı</th>
-            <th scope="col">Günlük Kiralama Ücreti</th>
-            <th scope="col">Açıklama</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let car of carDetails">
-            <th scope="row">{{car.carId}}</th>
-            <td>{{car.brandName}}</td>
-            <td>{{car.colorName}}</td>
-            <td>{{car.modelYear}}</td>
-            <td>{{car.dailyPrice}}</td>
-            <td>{{car.description}}</td>
-          </tr>
-         
-        </tbody>
-      </table>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Marka</th>
+      <th scope="col">Renk</th>
+      <th scope="col">Model</th>
+      <th scope="col">Günlük Kiralama Ücreti</th>
+      <th scope="col">Açıklama</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>{{carDetails.carId}}</th>
+      <td>{{carDetails.brandName}}</td>
+      <td>{{carDetails.colorName}}</td>
+      <td>{{carDetails.modelYear}}</td>
+      <td>{{carDetails.dailyPrice}}</td>
+      <td>{{carDetails.description}}</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="content">
-    <div class="card">
-    <div class="card-header"><h2 class="text">Güncelle</h2></div>
-    <div class="card-body">
-        <form [formGroup]="carForm">
-            
-            <div class="md-3">
-                <label for="brandId">Marka</label>
-                <select id="brandId" formControlName="brandId" class="form-control">
-                 <option [ngValue]="brand.brandId" *ngFor="let brand of brands">{{brand.brandName}}</option>
-                </select>
-            </div>
-            <div class="md-3">
-                <label for="colorId">Renk</label>
-                <select id="colorId" formControlName="colorId" class="form-control">
-                 <option [ngValue]="color.colorId" *ngFor="let color of colors">{{color.colorName}}</option>
-                </select>
-            </div>
+  <div class="card">
+  <div class="card-header"><h2 class="text">Güncelle</h2></div>
+  <div class="card-body">
+      <form [formGroup]="carForm">
+          
+          <div class="md-3">
+              <label for="brandId">Marka</label>
+              <select id="brandId" formControlName="brandId" class="form-control">
+               <option [ngValue]="brand.brandId" *ngFor="let brand of brands">{{brand.brandName}}</option>
+              </select>
+          </div>
+          <div class="md-3">
+              <label for="colorId">Renk</label>
+              <select id="colorId" formControlName="colorId" class="form-control">
+               <option [ngValue]="color.colorId" *ngFor="let color of colors">{{color.colorName}}</option>
+              </select>
+          </div>
 
-            <div class="md-3">
-                <label for="modelYear">Model Yılı</label>
-                <input type="number" id="modelYear" class="form-control" formControlName="modelYear">
-            </div>
+          <div class="md-3">
+              <label for="modelYear">Model Yılı</label>
+              <input type="number" id="modelYear" class="form-control" formControlName="modelYear">
+          </div>
 
-            <div class="md-3">
-                <label for="dailyPrice">Günlük Kiralama Ücreti</label>
-                <input type="number" id="dailyPrice" class="form-control" formControlName="dailyPrice">
-            </div>
+          <div class="md-3">
+              <label for="dailyPrice">Günlük Kiralama Ücreti</label>
+              <input type="number" id="dailyPrice" class="form-control" formControlName="dailyPrice">
+          </div>
 
-            <div class="md-3">
-                <label for="description">Açıklama</label>
-                <input type="text" id="description" class="form-control" formControlName="description">
-            </div>
+          <div class="md-3">
+              <label for="description">Açıklama</label>
+              <input type="text" id="description" class="form-control" formControlName="description">
+          </div>
 
-            <button type="button" class="btn btn-success" (click)="update()">Güncelle</button>
-           <button type="button" class="btn btn-secondary">İptal</button>
-    
-        </form>
-    </div>
-    
-        
-    </div>
+          <button type="button" (click)="update()" class="btn btn-success" >Güncelle</button>
+         <button type="button" class="btn btn-secondary">İptal</button>
+  
+      </form>
+  </div>
+  
+      
+  </div>
 </div>
-

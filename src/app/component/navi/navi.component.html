@@ -1,26 +1,86 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Rent A Car Project</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/rentals">Rentals</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/customers">Customers</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RentACarProject</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="">Ana Sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Hakkımızda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#" tabindex="-1" >İletişim</a>
+        </li>
+
+       
+
+      </ul>
+
+
+      <div class="d-flex" id="guest" *ngIf="!IsUserSignIn()" >
+        <div class="nav-item dropdown">
+          <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Giriş Yap
+          </button>
+            <ul class="dropdown-menu dropdown-menu-dark"  aria-labelledby="navbarDropdown">
+              
+                <form [formGroup]="loginForm">
+                 
+                  <h5 class="h3 mb-3 fw-normal">Kullanıcı Bilgileri</h5>
+                  <div class="form-floating">
+                    <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email adresi</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Şifre</label>
+                  </div>
+              
+                  <div class="checkbox mb-3">
+                    <label>
+                      <input type="checkbox" value="remember-me"> Beni Hatırla
+                    </label>
+                  </div>
+                  
+                 
+                </form>
+                <button type="button" (click)="login()" class="btn btn-light">Giriş Yap</button>
+          </ul>
+        </div>
+        <button routerLink="/register" type="button" class="btn btn-outline-success me-2">Kayıt Ol</button>
+       
       </div>
     </div>
-  </nav>
+    
+    <div class="d-flex" id="user" *ngIf="IsUserSignIn()" >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/inComingRentals/{{customerId}}">Randevularım</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/pastRentals/{{customerId}}">Geçmiş Kiralamalarım</a>
+      </li>
+      <li class="nav-item dropstart">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{user.firstName}} {{user.lastName}}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" routerLink="/userInfo">Kullanıcı Bilgilerim</a></li>
+          
+          
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item"  (click)="signOut()">Çıkış Yap</a></li>
+        </ul>
+      </li>
+    </ul>
+    
+    </div>
+     
+  </div>
+</nav>
+
+

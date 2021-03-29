@@ -1,6 +1,6 @@
-import { Model } from "./model";
 
-export interface CarImage extends Model{
+
+export interface CarImage{
     carImageId:number
     carId:number
     imagePath:string

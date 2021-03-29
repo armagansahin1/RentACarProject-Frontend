@@ -19,22 +19,22 @@ import { ColorService } from 'src/app/service/color.service';
 })
 export class UpdateCarComponent implements OnInit {
    carForm:FormGroup
-   updateToCarId:number
-   car:Car[]
    brands:Brand[]
    colors:Color[]
-   carDetails:CarDetails[]
+   updateCarId:number
+   carDetails:CarDetails
   constructor(private formBuilder:FormBuilder,private carDetailsService:CardetailService,private toastrService:ToastrService,private carService:CarService,private activatedRoot:ActivatedRoute,private brandService:BrandService,
     private colorService:ColorService) { }
-
+   
   ngOnInit(): void {
     this.activatedRoot.params.subscribe(params=>{
       if(params["carId"]){
-        this.getCar(params["carId"])
-        this.getCarDetails(params["carId"])
-        this.getAllBrand()
-        this.getAllColor()
+        this.getBrands()
+        this.getColors()
         this.createCarForm()
+        this.getCarDetails(params["carId"])
+        this.updateCarId=JSON.parse(params["carId"])
+        
       }
       
     }
@@ -49,38 +49,12 @@ export class UpdateCarComponent implements OnInit {
       description:["",Validators.required]
     })
    }
-   getCar(carId:number){
-    this.carService.getById(carId).subscribe(response=>{
-      this.car=response.data
-   })
-
-   }
-
-   update(){
-     this.carForm.patchValue({carId: this.carDetails[0].carId})
-     let carModel=Object.assign({},this.carForm.value)
-     if(this.carForm.valid){
-       this.carService.update(carModel).subscribe(response=>{
-         this.toastrService.success("Araba Güncellendi")
-       },
-       responseError=>{
-        if(responseError.error.ValidationErrors.length > 0) {
-          for(let i=0;i<responseError.error.ValidationErrors.length;i++) {
-            this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage)
-          }
-        }
-       }
-       )
-     }else{
-       this.toastrService.error("Eksik Bilgi Girdiniz")
-     }
-   }
-getAllBrand(){
+getBrands(){
   this.brandService.getBrands().subscribe(response=>{
     this.brands=response.data
   })
 }
-getAllColor(){
+getColors(){
   this.colorService.getColors().subscribe(response=>{
     this.colors=response.data
   })
@@ -88,7 +62,27 @@ getAllColor(){
 getCarDetails(carId:number){
   this.carDetailsService.getCarByCarId(carId).subscribe(response=>{
     this.carDetails=response.data
+    console.log(this.carDetails)
   })
+}
+update(){
+  this.carForm.patchValue({carId:this.updateCarId})
+  if(this.carForm.valid){
+    
+    let carModel=Object.assign({},this.carForm.value)
+    this.carService.update(carModel).subscribe(response=>{
+      this.toastrService.success("Araç güncellendi")
+    },errorResponse=>{
+      if(errorResponse.error.Errors.length>0){
+        for (let i = 0; i < errorResponse.error.Errors.length; i++) {
+          this.toastrService.info((errorResponse.error.Errors[i].ErrorMessage))
+        
+        }
+      }
+    })
+  }else{
+    this.toastrService.info("Eksik bilgi girdiniz")
+  }
 }
 
 }

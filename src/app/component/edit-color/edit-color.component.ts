@@ -18,12 +18,14 @@ export class EditColorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllColors();
-    this.createColorForm()
+    this.createColorForm();
+   
   }
+  
   createColorForm(){
     this.colorForm=this.formBuilder.group({
      colorId:["",Validators.required],
-      colorName:["",Validators.required]
+     colorName:["",Validators.required]
     })
     this.addColorForm=this.formBuilder.group({
       colorName:["",Validators.required]
@@ -38,7 +40,7 @@ export class EditColorComponent implements OnInit {
 
   setCurrentColorId(colorId?:number){
     this.currentColorId=colorId
-    
+    console.log(this.currentColorId)
   }
 
   update(){
@@ -47,11 +49,12 @@ export class EditColorComponent implements OnInit {
     if(this.colorForm.valid){
       this.colorService.update(colorModel).subscribe(response=>{
         this.toastrService.success("Renk ismi Güncellendi")
+        window.location.reload();
       },
       responseError=>{
-       if(responseError.error.ValidationErrors.length > 0) {
-         for(let i=0;i<responseError.error.ValidationErrors.length;i++) {
-           this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage)
+       if(responseError.error.Errors.length > 0) {
+         for(let i=0;i<responseError.error.Errors.length;i++) {
+           this.toastrService.error(responseError.error.Errors[i].ErrorMessage)
          }
        }
       }
@@ -67,13 +70,12 @@ export class EditColorComponent implements OnInit {
     if(this.addColorForm.valid){
       this.colorService.add(colorModel).subscribe(response=>{
         this.toastrService.success("Renk eklendi")
+        window.location.reload();
+
       },
       responseError=>{
-       if(responseError.error.ValidationErrors.length > 0) {
-         for(let i=0;i<responseError.error.ValidationErrors.length;i++) {
-           this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage)
-         }
-       }
+       
+         console.log(responseError)
       }
       )
     }else{
@@ -85,13 +87,10 @@ export class EditColorComponent implements OnInit {
     let colorToDelete:Color={colorId:colorId,colorName:colorName}
     this.colorService.delete(colorToDelete).subscribe(response=>{
       this.toastrService.info("Renk ismi silindi !!!")
+      window.location.reload();
+
     })
   }
 
-  refresh(){
   
-  
-    window.location.reload();
-    
-  }
 }

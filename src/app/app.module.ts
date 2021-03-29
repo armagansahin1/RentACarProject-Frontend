@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -25,6 +25,14 @@ import { AddCarComponent } from './component/add-car/add-car.component';
 import { UpdateCarComponent } from './component/update-car/update-car.component';
 import { EditBrandComponent } from './component/edit-brand/edit-brand.component';
 import { EditColorComponent } from './component/edit-color/edit-color.component';
+import { RegisterComponent } from './component/register/register.component';
+import { LoginComponent } from './component/login/login.component';
+import { AuthInterceptor } from  "./interceptors/auth.interceptor";
+import { PastRentalsComponent } from './component/past-rentals/past-rentals.component';
+import { IncomingRentComponent } from './component/incoming-rent/incoming-rent.component';
+import { UserInfoComponent } from './component/user-info/user-info.component';
+
+
 
 
 
@@ -62,6 +70,19 @@ import { EditColorComponent } from './component/edit-color/edit-color.component'
     
     EditColorComponent,
     
+    RegisterComponent,
+    
+    LoginComponent,
+    
+    PastRentalsComponent,
+    
+    IncomingRentComponent,
+    
+    UserInfoComponent,
+    
+
+    
+    
     
     
 
@@ -79,7 +100,9 @@ import { EditColorComponent } from './component/edit-color/edit-color.component'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

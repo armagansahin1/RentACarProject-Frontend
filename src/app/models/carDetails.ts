@@ -1,6 +1,5 @@
 import { CarImage } from "./carImage";
 
-
 export interface CarDetails{
     carId:number;
     brandName:string;
@@ -9,5 +8,6 @@ export interface CarDetails{
     dailyPrice:number;
     description:string;
     carImages:CarImage[]
+    findeks?:number
     
 }

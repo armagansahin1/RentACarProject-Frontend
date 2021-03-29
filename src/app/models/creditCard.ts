@@ -1,9 +1,11 @@
 export interface CreditCard{
+customerId?:number
 firstName:string
 lastName:string
-
-ccv:number
+cardName:string
+cardNumber:string
+cvv:number
 expYear:number
 expMonth:number
-cardNumber:number
+id?:number
 } 

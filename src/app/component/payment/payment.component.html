@@ -1,51 +1,125 @@
-
-
-<form [formGroup]="paymentForm" class="row g-3" >
-    <div class="col-md-4">
-      <label for="firtsName" class="form-label">Ad</label>
-      <input type="text" id="firstName" formControlName="firstName" class="form-control" >
-      
+<div class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3>Kayıtlı Kredi Kartlarım</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Kart Adı</th>
+            <th scope="col">Kart Numarası</th>
+            <th scope="col">Skt:Yıl</th>
+            <th scope="col">Ay</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of customerCards">
+            <td>{{c.cardName}}</td>
+            <td>{{c.cardNumber}}</td>
+            <td>{{c.expYear}}</td>
+            <td>{{c.expMonth}}</td>
+            <td> <button  type="button" (click)="makeAPayment()" class="btn btn-success btn-sm">Seçili Kart İle Öde</button></td>
+          </tr>
+        </tbody>
+        </table>
     </div>
-    <div class="col-md-4">
-      <label for="lastName" class="form-label">Soyad : </label>
-      <input type="text" id="lastName" formControlName="lastName" class="form-control" >
-      
-    </div>
-    <div class="col-md-4">
-      <label for="ccv" class="form-label">CCV</label>
-      <input type="number" id="ccv" formControlName="ccv" class="form-control" >
-        
-        
-        
-      
-    </div>
-    <div class="col-md-6">
-      <label for="cardNumber" class="form-label">Kart Numarası:</label>
-      <input type="number" class="form-control" id="cardNumber" formControlName="cardNumber">
-      
-    </div>
-
-    <div class="col-md-3">
-        <label for="expYear" class="form-label">Yıl</label>
-        <input formControlName="expYear" type="number"   class="form-control" id="expYear" >
-          
-        
-       
-      </div>
-    
-      <div class="col-md-3">
-          <label for="expMonth" class="form-label">Ay</label>
-          <input formControlName="expMonth" type="number" class="form-control" id="expMonth" >
-          
-          
-      </div>
-  <div class="col-12">
-    <button class="btn btn-success" (click)="makeThePayment()">Ödemeyi Gerçekleştir</button>
   </div>
+</div>
+
+<div class="content">
+  <div class="card">
+
+    <div class="card-header">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Marka</th>
+            <th scope="col">Başlangıç Tarihi</th>
+            <th scope="col">Teslim Tarihi</th>
+            <th scope="col">Ücret</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{carDetails.brandName}}</td>
+            <td>{{rental.rentDate}}</td>
+            <td>{{rental.returnDate}}</td>
+            <td>{{rental.payment | currency:'TRY':'₺'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="paymentForm" class="row g-3" >
+        <div class="col-md-4">
+          <label for="firtsName" class="form-label">Ad</label>
+          <input type="text" id="firstName" formControlName="firstName" class="form-control" >
+          
+        </div>
+        <div class="col-md-4">
+          <label for="lastName" class="form-label">Soyad : </label>
+          <input type="text" id="lastName" formControlName="lastName" class="form-control" >
+          
+        </div>
+        <div class="col-md-4">
+          <label for="cvv" class="form-label">CVV</label>
+          <input type="number" id="cvv" formControlName="cvv" class="form-control" >
+            
+            
+            
+          
+        </div>
+        <div class="col-md-6">
+          <label for="cardNumber" class="form-label">Kart Numarası:</label>
+          <input  type="text"  class="form-control" id="cardNumber" formControlName="cardNumber">
+          
+        </div>
     
-  </form>
-  
+        <div class="col-md-3">
+            <label for="expYear" class="form-label">Son Kullanma Tarihi : Yıl</label>
+            <input formControlName="expYear" type="number" class="form-control" id="expYear" >
+              
+            
+           
+          </div>
+        
+          <div class="col-md-3">
+              <label for="expMonth" class="form-label">Ay</label>
+              <input formControlName="expMonth" type="number" class="form-control" id="expMonth" >
+              
+              
+          </div>
+     
+        
+      </form>
+    </div>
+    <div class="card-footer">
+      <div class="col-12">
+        <button  type="button" (click)="checkCard()"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#saveCreditCard">
+          Ödeme Gerçekleştir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<div *ngIf="askForSave" class="modal fade" id="saveCreditCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Kredi kartını kaydetmek ister misiniz?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="makeAPayment()">Hayır</button>
+        <button type="button" class="btn btn-primary" (click)="saveCard()">Evet</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-  

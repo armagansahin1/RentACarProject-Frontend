@@ -8,10 +8,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { PaymentService } from 'src/app/service/payment.service';
 import { RentalService } from 'src/app/service/rental.service';
-
 import { CreditCard } from 'src/app/models/creditCard';
+import { Car } from 'src/app/models/car';
+import { CarService } from 'src/app/service/car.service';
+import { CarDetails } from 'src/app/models/carDetails';
+import { CardetailService } from 'src/app/service/cardetail.service';
+import { UserService } from 'src/app/service/user.service';
+import { User } from 'src/app/models/user';
+import { CreditCardService } from 'src/app/service/creditCard.service';
+import { CustomerService } from 'src/app/service/customer.service';
+import { Customer } from 'src/app/models/customer';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -19,84 +28,104 @@ import { CreditCard } from 'src/app/models/creditCard';
 })
 export class PaymentComponent implements OnInit {
   paymentForm: FormGroup;
-  rental: Rental;
-  years:number[]=[]
-  months:number[]=[]
-  selectedYear:number
-  selectedMonth:number
-
+  carDetails:CarDetails
+  customer:Customer
+  rental:Rental
+  payment:number
+  customerCards:CreditCard[]
+  askForSave:boolean=false
   constructor(
-    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private paymentService: PaymentService,
     private rentalService: RentalService,
-    private router: Router
+    private router: Router,
+    private creditCardService:CreditCardService,
+    private localStorageService:LocalStorageService
+    
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      if (params['rental']) {
-        this.rental = JSON.parse(params['rental']);
-        
-      }
-      this.createPaymentForm();
-      this.getDates();
-    });
+    this.createPaymentForm();
+    this.customer=this.localStorageService.getObjectFromLocalStorage("customer")
+    this.rental=this.localStorageService.getObjectFromLocalStorage("rental")
+    this.carDetails=this.localStorageService.getObjectFromLocalStorage("carDetail")
+    this.getCustomerCards()  
+      
+    
   }
+   getCustomerCards(){
+     this.creditCardService.getCustomerCards(this.customer.customerId).subscribe(response=>{
+       this.customerCards=response.data
+     })
+   }
   createPaymentForm() {
     this.paymentForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       
-      ccv: ['', Validators.required],
+      cvv: ['', Validators.required],
       expYear:['', Validators.required],
       
       expMonth: ['', Validators.required],
       cardNumber: ['', Validators.required],
     });
+
   }
+   makeAPayment(){
+     this.rentalService.addRent(this.rental).subscribe(response=>{
+       this.toastrService.success("Ödeme işleminiz Başarıyla gerçekleştirildi")
+       
+       localStorage.removeItem("carDetail")
+       localStorage.removeItem("rental")
+       this.router.navigate([""])
+       
+     },errorResponse=>{
+       if(errorResponse.error.Errors){
+         for (let i = 0; i < errorResponse.error.Errors.length; i++) {
+           this.toastrService.error(errorResponse.error.Errors.Message[i]);
+           
+         }
+       }else{
+         this.toastrService.warning(errorResponse.error.message,"Üzgünüz")
+         
+       }
+     })
+   }
+
+    checkCard(){
+      if(this.paymentForm.valid){
+        let creditCardModel=Object.assign({},this.paymentForm.value)
+        this.creditCardService.getByCardNumber(creditCardModel.cardNumber).subscribe(response=>{
+          if(response.data==null){
+            this.askForSave=true
+            
+          }else{
+            this.makeAPayment()
+          }
+          
+        })
+      }else {
+        this.toastrService.error("Kredi Kartı Bilgileriniz Eksik")
+      }
+    }
+
+    saveCard(){
+      let cardModel:CreditCard=Object.assign({},this.paymentForm.value)
+      cardModel.customerId=this.customer.customerId
+      this.creditCardService.add(cardModel).subscribe(response=>{
+        this.toastrService.success("Kartınız Hesabınıza Kaydedildi")
+        this.makeAPayment()
+      })
+    }
+
+
+
   
-  makeThePayment() {
-    if (this.paymentForm.valid) {
-      let creditCardModel:CreditCard = Object.assign({}, this.paymentForm.value);
-      this.paymentService.verify(creditCardModel).subscribe((response => {
-        if(response.success){
-          this.rentalService.addRent(this.rental).subscribe((response=>{
-            if(!response.success){
-              this.toastrService.error("Seçili tarih aralığında kiralama yapılamaz")
-              
-            }
-          }))
-          this.toastrService.success("Ana menüye yönlendiriliyorsunuz","İşlem Başarılı")
-          this.router.navigate(["/cars"])
-        }
-        else{
-          this.toastrService.error(response.message)
-        }
-        
-    }))
- }
- else{
-   this.toastrService.error("Kredi Kartı Bilgileriniz Eksik !!!")
- }
 }
 
 
-getDates(){
-  
-  let currentYear=new Date().getFullYear()
-  for (let i = 0; i < 50; i++) {
-      this.years[i]=currentYear+i;    
-    
-  }
-  for (let i = 0; i < 12; i++) {
-    this.months[i]=i+1;
-    
-  }
-  
-}
 
 
-}
+
+
 

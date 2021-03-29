@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="card">
+        <div class="card-header"><h3>Geçmiş Kiralamalarım</h3></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Marka</th>
+                    <th scope="col">Başlangıç Tarihi</th>
+                    <th scope="col">Teslim Tarihi</th>
+                    <th scope="col">Ödeme</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rental of rentals">
+                    <th >{{rental.brandName}}</th>
+                    <td>{{rental.rentDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{rental.returnDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{rental.payment | currency:'TRY':'₺'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

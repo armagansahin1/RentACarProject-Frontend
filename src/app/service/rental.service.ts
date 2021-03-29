@@ -28,4 +28,14 @@ export class RentalService {
     let newPath=this.apiUrl+"/checkrentability"
     return this.httpClient.post<ResponseModel>(newPath,rental)
   }
+
+  getPastRentals(customerId:number):Observable<ListResponseModel<RentalDto>>{
+    let newPath=this.apiUrl+"/pastrents?customerid="+customerId
+    return this.httpClient.get<ListResponseModel<RentalDto>>(newPath)
+  }
+
+  getIncomingRentals(customerId:number):Observable<ListResponseModel<RentalDto>>{
+    let newPath=this.apiUrl+"/inComingRents?customerid="+customerId
+    return this.httpClient.get<ListResponseModel<RentalDto>>(newPath)
+  }
 }

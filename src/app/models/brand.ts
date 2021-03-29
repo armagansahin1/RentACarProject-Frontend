@@ -1,6 +1,5 @@
-import { Model } from "./model";
 
-export interface Brand extends Model{
+export interface Brand{
     brandId?:number
     brandName:string;
 }

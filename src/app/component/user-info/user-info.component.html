@@ -1,0 +1,231 @@
+<div class="content">
+    <div class="card">
+    <div class="card-header"><h3>Kişisel Bilgileriniz</h3></div>
+    <div class="card-body">
+        <table class="table">
+            <tbody>
+
+                <tr>
+                  <th scope="row">Adınız : </th>
+                  <td>{{user.firstName}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Soyadınız : </th>
+                    <td>{{user.lastName}}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">E-mail : </th>
+                    <td>{{user.email}}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Findeks Puanı</th>
+                    <td>{{customer.findeksPoint}}</td>
+                  </tr>
+                  
+        </table>
+        <div class="card-footer">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#userUpdate" class="btn btn-primary">Bilgilerinizi Düzenleyin</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#passwordUpdate" class="btn btn-warning">Şifrenizi Değiştirin</button>
+        </div>
+    </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+    <div class="content">
+        <div class="card">
+          <div class="card-header">
+            <h3>Kayıtlı Kredi Kartlarım</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Kart Adı</th>
+                  <th scope="col">Ad</th>
+                  <th scope="col">Soyad</th>
+                  <th scope="col">Kart Numarası</th>
+                  <th scope="col">Skt:Yıl</th>
+                  <th scope="col">Ay</th>
+                  <th scope="col">CVV</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let card of creditCards">
+                 <td>{{card.cardName}}</td>
+                 <td>{{card.firstName}}</td>
+                 <td>{{card.lastName}}</td>
+                 <td>{{card.cardNumber}}</td>
+                 <td>{{card.expYear}}</td>
+                 <td>{{card.expMonth}}</td>
+                 <td>{{card.cvv}}</td>
+                 <td><button type="button" (click)="deleteCard(card.id)" class="btn btn-danger">Sil</button></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#addCardModal" class="btn btn-primary">Kredi Kartı Ekleyin</button>
+                  </td>
+                </tr>
+              </tfoot>
+              </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="modal fade" id="passwordUpdate" tabindex="-1" aria-labelledby="passwordUpdate" aria-hidden="true"><!--Password Update Modal-->
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-header"><h3>Parolanızı güncelleyin</h3></div>
+                <div class="card-body">
+
+               <form [formGroup]="passwordForm">
+                  <div class="form-floating">
+                    <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password">Şifre</label>
+                 </div>
+
+                <div class="form-floating">
+                  <input type="password" formControlName="validPassword" class="form-control" id="validPassword" placeholder="Password"> 
+                  <label for="validPassword">Şifrenizi Tekrarlayın</label>
+                </div>
+              </form>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="updatePassword()">Şifreyi Değiştir</button>
+            </div>
+          </div>
+        </div>
+      </div><!--Password Update Modal-->
+
+
+      <div class="modal fade" id="userUpdate" tabindex="-1" aria-labelledby="userUpdate" aria-hidden="true"><!--User Update Modal-->
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-header"><h3>Kullanıcı Bilgilerinizi Güncelleyin</h3><br><p>Tekrar Giriş Yapmanız Gerekir</p></div>
+                <div class="card-body">
+
+               <form [formGroup]="userForm">
+                  <div class="form-floating">
+                    <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="Adınız">
+                    <label for="firstName">Adınız</label>
+                 </div>
+
+                <div class="form-floating">
+                  <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Soyadınız"> 
+                  <label for="lastName">Soyadınız</label>
+                </div>
+              
+
+              <div class="form-floating">
+                <input type="text" formControlName="email" class="form-control" id="email" placeholder="E-mail"> 
+                <label for="email">E-mail Adresi</label>
+              </div>
+            </form>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="updateUser()">Bilgilerimi Güncelle</button>
+            </div>
+          </div>
+        </div>
+      </div><!--User Update Modal-->
+
+      <div class="modal fade" id="addCardModal" tabindex="-1" aria-labelledby="addCardModal" aria-hidden="true"><!--Add Card Modal-->
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-header"><h3>Kredi Kartı Ekle</h3></div>
+                <div class="card-body">
+
+               <form [formGroup]="creditCardForm">
+                  <div class="form-floating">
+                    <input type="text" formControlName="cardName" class="form-control" id="cardName" placeholder="Kart Başlığı">
+                    <label for="cardName">Kart Başlığı</label>
+                 </div>
+
+                <div class="form-floating">
+                  <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="Ad"> 
+                  <label for="firstName">Ad</label>
+                </div>
+              
+
+              <div class="form-floating">
+                <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Soyad"> 
+                <label for="lastName">Soyad</label>
+              </div>
+            
+
+               
+
+                <div class="form-floating">
+                  <input type="text" formControlName="cardNumber" class="form-control" id="cardNumber" placeholder="Kart Numarası"> 
+                  <label for="cardNumber">Kart Numarası</label>
+                </div>
+              
+  
+                  
+
+                  <div class="form-floating">
+                    <input type="number" formControlName="expYear" class="form-control" id="expYaer" placeholder="Yıl"> 
+                    <label for="expYear">Yıl</label>
+                  </div>
+                
+    
+                    
+
+                    <div class="form-floating">
+                      <input type="number" formControlName="expMonth" class="form-control" id="expMonth" placeholder="Ay"> 
+                      <label for="expMonth">Ay</label>
+                    </div>
+                 
+      
+                     
+
+                      <div class="form-floating">
+                        <input type="number" formControlName="cvv" class="form-control" id="cvv" placeholder="CVV"> 
+                        <label for="cvv">CVV</label>
+                      </div>
+                  </form>
+        
+                 </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="addCard()">Ekle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--Add Card Modal-->

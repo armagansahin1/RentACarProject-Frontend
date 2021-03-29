@@ -1,0 +1,30 @@
+<main class="form-signin">
+    <form [formGroup]="registerForm">
+     
+      <h1 class="h3 mb-3 fw-normal">Kayıt Formu</h1>
+      <div class="form-floating">
+        <input type="text" formControlName="firstName" class="form-control" id="floatingInput" placeholder="Adınız">
+        <label for="floatingInput">Adınız</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" formControlName="lastName" class="form-control" id="floatingInput" placeholder="Soyadınız">
+        <label for="floatingInput">Soyadınız</label>
+      </div>
+      <div class="form-floating">
+        <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email adresi</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Şifre</label>
+      </div>
+  
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" (click)="register()" type="submit">Kayıt Ol</button>
+     
+    </form>
+  </main>

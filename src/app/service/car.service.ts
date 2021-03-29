@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Car } from '../models/car';
-import { DataResponseModel } from '../models/dataResponseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from '../models/responseModel';
 
@@ -25,8 +25,8 @@ export class CarService {
       let newUrl=this.apiUrl+"delete"
       return this.httpClient.post<ResponseModel>(newUrl,car)
     }
-    getById(carId:number):Observable<ListResponseModel<Car>>{
-      let newUrl=this.apiUrl+"getbyid"
-      return this.httpClient.get<ListResponseModel<Car>>(newUrl)
+    getById(carId:number):Observable<SingleResponseModel<Car>>{
+      let newUrl=this.apiUrl+"getbyid?carId="+carId
+      return this.httpClient.get<SingleResponseModel<Car>>(newUrl)
     }
 }

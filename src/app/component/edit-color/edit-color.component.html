@@ -16,8 +16,10 @@
       </tr>
       <tr>
           <th></th>
-          <td><form [formGroup]="addColorForm"><input class="form-controller" formControlName="colorName" type="text"></form></td>
-          <td><button type="button" (click)="add()"  class="btn btn-success btn-sm">Ekle</button></td>
+          <td><form [formGroup]="addColorForm">
+              <input class="form-control" formControlName="colorName" type="text">
+            </form></td>
+          <td><button type="button" (click)="add()"  class="btn btn-success ">Ekle</button></td>
       </tr>
     </tbody>
   </table>
@@ -32,12 +34,12 @@
         </div>
         <div class="modal-body">
             <form [formGroup]="colorForm">
-                <input class="form-controller" formControlName="colorName" type="text">
+                <input class="form-control" formControlName="colorName" type="text">
             </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-          <button type="button"  (click)="update()" (click)="refresh()" class="btn btn-primary">Güncelle</button>
+          <button type="button"  (click)="update()" class="btn btn-primary">Güncelle</button>
         </div>
       </div>
     </div>

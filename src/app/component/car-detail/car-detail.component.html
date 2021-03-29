@@ -1,101 +1,88 @@
+<div class="card">
+
+<div class="card-header">
+
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div *ngFor="let image of images let i=index" [ngClass]="getSliderClassName(i)" >
-        <img width="300" height="300" src="{{urlPath}}/{{image.imagePath}}"  class="d-block w-100" alt="...">
-      </div>
+  <div class="carousel-inner">
+    <div *ngFor="let image of images let i=index" [ngClass]="getSliderClassName(i)" >
+      <img width="300" height="500" src="{{urlPath}}/{{image.imagePath}}"  class="d-block w-100" alt="...">
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
-  <br>
- 
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</div>
 
 
-  <table class="table">
-    
-    <tbody  *ngFor="let car of carDetails">
-         <tr>
-           
-     <th>Marka</th>
-     <td>{{car.brandName}}</td>
-         </tr>
-
-         <tr>
-     <th>Renk</th>
-     <td>{{car.colorName}}</td>
-         </tr>
-
-     <tr>
-     <th>Model Yılı</th>
-     <td>{{car.modelYear}}</td>
-      </tr>
-
-      <tr>
-     <th>Günlük Kiralama Bedeli</th>
-     <td>{{car.dailyPrice | currency:'TRY':'₺'}}</td>
-      </tr>
-    
-    
-     </tbody>
-     
- </table>
-
- <form>
-    
-    <legend>Bu Aracı Kirala</legend>
-    
-    <div class="mb-3">
-        <table class="table caption-top">
-            <caption>Customer List</caption>
-            <thead>
-                
-                <tr>
-                    <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Company Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr (click)="setCurrentCustomer(customer)" *ngFor="let customer of customers">
-                    <td >{{customer.customerId}}</td>
-                    <td>{{customer.firstName}}</td>
-                    <td>{{customer.lastName}}</td>
-                    <td>{{customer.email}}</td>
-                    <td>{{customer.companyName}}</td>
-                </tr>
-            </tbody>
-            
-        </table>
-  </div>
-
- 
-
-  <div class="mb-3">
-    <label for="rentDate">Kiralama Başlangıcı :</label>
-  <input [(ngModel)]="currentRentDay" type="date" id="rentDate" name="trip-start"
-       value="{{getRentMinDate()}}"
-       min="{{getRentMinDate()}}" >
-    </div>
-     
-    <div class="mb-3">
-        <label for="returnDate">Kiralama Bitişi :</label>
-      <input [(ngModel)]="currentReturnDay" type="date" id="returnDate" name="trip-start"
-           value="{{getReturnMinDate()}}"
-           min="{{currentRentDay}}" >
-        </div>
-
-  <div class="mb-3">
-    
-   
-    <button (click)="addRental()" type="button" class="btn btn-success">Ödeme Sayfasına Git</button>
-  </div>
+<div class="card-body">
+<table class="table">
   
+  <tbody >
+       <tr>
+         
+   <th>Marka</th>
+   <td>{{carDetails.brandName}}</td>
+       </tr>
+
+       <tr>
+   <th>Renk</th>
+   <td>{{carDetails.colorName}}</td>
+       </tr>
+
+   <tr>
+   <th>Model Yılı</th>
+   <td>{{carDetails.modelYear}}</td>
+    </tr>
+
+    <tr>
+   <th>Günlük Kiralama Bedeli</th>
+   <td>{{carDetails.dailyPrice | currency:'TRY':'₺'}}</td>
+   <th>Findeks Puanı</th>
+   <td>{{carDetails.findeks}}</td>
+    </tr>
+  
+  
+   </tbody>
+   
+</table>
+</div>
+<div class="card-footer">
+<form [formGroup]="dateForm">
+  
+  <legend>Bu Aracı Kirala</legend>
+
+
+
+<div class="mb-3">
+  <label for="rentDate">Kiralama Başlangıcı :</label>
+<input (change)="calculatePayment()" [(ngModel)]="currentRentDate" formControlName="rentDate" type="date" id="rentDate" name="trip-start"
+     
+     min="{{getRentMinDate()}}" >
+  </div>
+   
+  <div class="mb-3">
+      <label for="returnDate">Kiralama Bitişi :</label>
+    <input (change)="calculatePayment()" [(ngModel)]="currentReturnDate" formControlName="returnDate" type="date" id="returnDate" name="trip-start"
+         
+         min="{{currentRentDate}}">
+      </div>
+
+<div class="mb-3">
+  
+ 
+  <button type="button" (click)="checkRentability()" class="btn btn-success">Ödeme Sayfasına Git | Ödeme:{{payment | currency:'TRY':'₺'}}</button>
+</div>
+
 </form>
+</div>
+</div>
+
+
+
