@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddCarComponent } from './component/add-car/add-car.component';
+import { AdminPageComponent } from './component/admin-page/admin-page.component';
 import { CarDetailComponent } from './component/car-detail/car-detail.component';
 
 import { CarComponent } from './component/car/car.component';
 
 import { CustomerComponent } from './component/customer/customer.component';
+import { CustomizeCarComponent } from './component/customize-car/customize-car.component';
+import { CustomizeUserComponent } from './component/customize-user/customize-user.component';
+
 import { EditBrandComponent } from './component/edit-brand/edit-brand.component';
 import { EditColorComponent } from './component/edit-color/edit-color.component';
 import { IncomingRentComponent } from './component/incoming-rent/incoming-rent.component';
@@ -24,18 +29,24 @@ const routes: Routes = [
   
    {path:"rentals",component:RentalComponent,canActivate:[LoginGuard]},
    {path:"customers",component:CustomerComponent,canActivate:[LoginGuard]},
-   {path:"editBrands", component:EditBrandComponent,canActivate:[LoginGuard]},
-   {path:"editColors",component:EditColorComponent,canActivate:[LoginGuard]},
+   {path:"adminPage/editBrands", component:EditBrandComponent,canActivate:[LoginGuard]},
+   {path:"adminPage/editColors",component:EditColorComponent,canActivate:[LoginGuard]},
    {path:"register",component:RegisterComponent},
    {path:"login",component:LoginComponent},
    {path:"userInfo",component:UserInfoComponent,canActivate:[LoginGuard]},
+
+   {path:"adminPage",component:AdminPageComponent},
+   {path:"adminPage/customizeCar",component:CustomizeCarComponent},
+   {path:"adminPage/editBrands", component:EditBrandComponent,canActivate:[LoginGuard]},
+   {path:"adminPage/editColors",component:EditColorComponent,canActivate:[LoginGuard]},
+   {path:"adminPage/customizeUser", component:CustomizeUserComponent},
    {path:"inComingRentals/:customerId",component:IncomingRentComponent,canActivate:[LoginGuard]},
-    {path:"pastRentals/:customerId",component:PastRentalsComponent,canActivate:[LoginGuard]},
-    {path:"cars",component:CarComponent},
-    {path:"updateCar/:carId",component:UpdateCarComponent,canActivate:[LoginGuard]},
-    {path:"cars/brand/:brandId",component:CarComponent},
-    {path:"cars/color/:colorId",component:CarComponent},
-    {path:"cars/filter/:brandId/:colorId",component:CarComponent},
+   {path:"pastRentals/:customerId",component:PastRentalsComponent,canActivate:[LoginGuard]},
+   {path:"cars",component:CarComponent},
+   {path:"updateCar/:carId",component:UpdateCarComponent,canActivate:[LoginGuard]},
+   {path:"cars/brand/:brandId",component:CarComponent},
+   {path:"cars/color/:colorId",component:CarComponent},
+   {path:"cars/filter/:brandId/:colorId",component:CarComponent},
     
     {path:"cars/car-details/:carId", component:CarDetailComponent,canActivate:[LoginGuard]},
     {path:"payment",component:PaymentComponent,canActivate:[LoginGuard]}

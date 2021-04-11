@@ -3,20 +3,11 @@
 
 <input [(ngModel)]="filterText" type="text" class="form-control" id="filterText" placeholder="Mevcut Markaları Ara..."><br>
 
-<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addCarScreen">
-    Araba Ekle
-  </button>
+
   
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <div *ngFor="let car of carDetails | carPipe:filterText" class="col">
-        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-            
-            <button type="button" class="btn btn-warning" routerLink="/updateCar/{{car.carId}}">
-                Güncelle
-              </button>
-            <button type="button" (click)="deleteCar(car.carId)"  class="btn btn-danger">Sil</button>
-        </div>
         <div class="card">
             
           <img  src="{{urlPath}}/{{car.carImages[0].imagePath}}" height="200" class="card-img-top" alt="...">

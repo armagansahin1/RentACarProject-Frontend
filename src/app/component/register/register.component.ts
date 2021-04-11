@@ -47,7 +47,10 @@ register(){
        this.customerService.add(customer).subscribe(response=>{
          this.customerService.getByUser(userResponse.data.id).subscribe(response=>{
             this.localStorageService.sendObjectToLocalStroge("customer",response.data)
-            this.router.navigate([""])
+            setTimeout(() => {
+              this.router.navigate([""])
+            }, 1500);
+            
          })
        })
      })

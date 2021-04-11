@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,17 +27,13 @@ import { EditBrandComponent } from './component/edit-brand/edit-brand.component'
 import { EditColorComponent } from './component/edit-color/edit-color.component';
 import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
-import { AuthInterceptor } from  "./interceptors/auth.interceptor";
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PastRentalsComponent } from './component/past-rentals/past-rentals.component';
 import { IncomingRentComponent } from './component/incoming-rent/incoming-rent.component';
 import { UserInfoComponent } from './component/user-info/user-info.component';
-
-
-
-
-
-
-
+import { AdminPageComponent } from './component/admin-page/admin-page.component';
+import { CustomizeCarComponent } from './component/customize-car/customize-car.component';
+import { CustomizeUserComponent } from './component/customize-user/customize-user.component';
 
 @NgModule({
   declarations: [
@@ -48,47 +44,42 @@ import { UserInfoComponent } from './component/user-info/user-info.component';
     BrandComponent,
     ColorComponent,
     CarComponent,
-   
-    
+
     BrandPipePipe,
-    
+
     CarPipePipe,
-    
+
     ColorPipePipe,
-    
+
     FilterComponent,
-    
+
     CarDetailComponent,
-    
+
     PaymentComponent,
-    
+
     AddCarComponent,
-    
+
     UpdateCarComponent,
-    
+
     EditBrandComponent,
-    
+
     EditColorComponent,
-    
+
     RegisterComponent,
-    
+
     LoginComponent,
-    
+
     PastRentalsComponent,
-    
+
     IncomingRentComponent,
-    
+
     UserInfoComponent,
-    
 
-    
-    
-    
-    
+    AdminPageComponent,
 
-    
+    CustomizeCarComponent,
 
-
+    CustomizeUserComponent,
   ],
   imports: [
     MatSelectModule,
@@ -98,11 +89,11 @@ import { UserInfoComponent } from './component/user-info/user-info.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

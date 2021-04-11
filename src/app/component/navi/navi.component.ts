@@ -28,7 +28,10 @@ export class NaviComponent implements OnInit {
     this.createLoginForm()
     this.user=this.localStorageService.getObjectFromLocalStorage("user")
     this.getCustomerId()
-  
+    this.adminControl()
+    
+    
+
   }
   createLoginForm(){
     this.loginForm=this.formBuilder.group({
@@ -44,6 +47,19 @@ export class NaviComponent implements OnInit {
       
     }
   }
+  adminControl(){
+    let claims:Claim[]=this.localStorageService.getObjectFromLocalStorage("claims")
+    if(claims !==null){
+      for (let i = 0; i < claims.length; i++) {
+        if(claims[i].name==="admin"){
+          return true
+        }
+        
+      }
+      return false
+    }
+      return false
+  }
   
 
   login(){
@@ -57,7 +73,15 @@ export class NaviComponent implements OnInit {
          this.localStorageService.sendObjectToLocalStroge("user",userResponse.data)
         this.customerService.getByUser(userResponse.data.id).subscribe(customerResponse=>{
           this.localStorageService.sendObjectToLocalStroge("customer",customerResponse.data)
-          window.location.reload()
+          this.userService.getClaims(userResponse.data).subscribe(claims=>{
+            this.localStorageService.sendObjectToLocalStroge("claims",claims.data)
+            this.adminControl()
+            setTimeout(() => {
+              window.location.reload()
+            }, 1000); 
+            
+          })
+         
         })
          
        })
@@ -76,6 +100,8 @@ export class NaviComponent implements OnInit {
     let customer:Customer=this.localStorageService.getObjectFromLocalStorage("customer")
     this.customerId=customer.customerId
    }
+  
+
 
   
 }

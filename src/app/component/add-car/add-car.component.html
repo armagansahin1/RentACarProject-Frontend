@@ -1,3 +1,45 @@
+<div class="content">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Renk</th>
+            <th scope="col">Model Yılı</th>
+            <th scope="col">Günlük Kiralama Ücreti</th>
+            <th scope="col">Findeks Puanı</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+           
+          </tr>
+        
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of carDetails let i=index">
+            <th scope="row">{{car.carId}}</th>
+            <td>{{car.brandName}}</td>
+            <td>{{car.colorName}}</td>
+            <td>{{car.modelYear}}</td>
+            <td>{{car.dailyPrice}}</td>
+            <td>{{car.findeks}}</td>
+            <td>{{car.description}}</td>
+            <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="button" class="btn btn-danger">Sil</button>
+                <button type="button" class="btn btn-warning">Güncelle</button>
+                <button type="button" class="btn btn-info">Resimler</button>
+              </div></td>
+          </tr>
+          
+          
+          
+      </table>
+</div>
+
+
+
+
 
 <div class="content">
     <div class="cool-md-12">
@@ -21,6 +63,8 @@
                      <input type="number" id="modelYear" formControlName="modelYear" class="form-control">
                      <label for ="dailyPrice">Günlük Kiralama Ücreti : </label>
                      <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control">
+                     <label for ="findeks">Findeks Puanı : </label>
+                     <input type="number" id="findeks" formControlName="findeks" class="form-control">
                      <label for ="description">Açıklama : </label>
                      <input type="text" id="description" formControlName="description" class="form-control">
                      </div>

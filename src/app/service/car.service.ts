@@ -27,6 +27,7 @@ export class CarService {
     }
     getById(carId:number):Observable<SingleResponseModel<Car>>{
       let newUrl=this.apiUrl+"getbyid?carId="+carId
+      let uploadData=new FormData();
       return this.httpClient.get<SingleResponseModel<Car>>(newUrl)
     }
 }

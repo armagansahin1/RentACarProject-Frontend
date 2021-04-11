@@ -37,7 +37,11 @@ export class LoginComponent implements OnInit {
          this.localStorageService.sendObjectToLocalStroge("user",userResponse.data)
         this.customerService.getByUser(userResponse.data.id).subscribe(customerResponse=>{
           this.localStorageService.sendObjectToLocalStroge("customer",customerResponse.data)
-          this.router.navigate([""])
+          this.userService.getClaims(userResponse.data).subscribe(response=>{
+            this.localStorageService.sendObjectToLocalStroge("claims",response.data)
+            this.router.navigate([""])
+          })
+          
          
           
         })

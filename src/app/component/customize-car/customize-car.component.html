@@ -1,0 +1,156 @@
+<div class="content">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Renk</th>
+            <th scope="col">Model Yılı</th>
+            <th scope="col">Günlük Kiralama Ücreti</th>
+            <th scope="col">Findeks Puanı</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+           
+          </tr>
+        
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of carDetails let i=index">
+            <th scope="row">{{car.carId}}</th>
+            <td>{{car.brandName}}</td>
+            <td>{{car.colorName}}</td>
+            <td>{{car.modelYear}}</td>
+            <td>{{car.dailyPrice}}</td>
+            <td>{{car.findeks}}</td>
+            <td>{{car.description}}</td>
+            <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="button" (click)="deleteCar(car)" class="btn btn-danger">Sil</button>
+                <button data-bs-toggle="modal" (click)="setCurrentCarId(car.carId)" data-bs-target="#carUpdateModal" type="button" class="btn btn-warning">Güncelle</button>
+                <button data-bs-toggle="modal" data-bs-target="#carImageModal" (click)="getCarImages(car.carId)" type="button" class="btn btn-info">Resimler</button>
+              </div></td>
+          </tr>
+          
+          
+          
+      </table>
+</div>
+
+
+
+
+
+<div class="content">
+    <div class="cool-md-12">
+     <div class="modal-dialog">
+        <div class="modal-content">
+
+         <div class="modal-header"><h5 class="title">Araç Ekle</h5></div>
+         <div class="modal-body">
+             <form [formGroup]="carForm">
+                 <div class="mb-3">
+                     <div class="form-group">
+                     <label for ="brandId">Marka: </label>
+                     <select id="brandId" formControlName="brandId" class="form-control">
+                         <option [ngValue]=brand.brandId *ngFor="let brand of brands">{{brand.brandName}}</option>
+                     </select>
+                     <label for ="colorId">Renk : </label>
+                     <select id="colorId" formControlName="colorId" class="form-control">
+                        <option [ngValue]=color.colorId *ngFor="let color of colors">{{color.colorName}}</option>
+                    </select>
+                     <label for ="modelYear">Model Yılı : </label>
+                     <input type="number" id="modelYear" formControlName="modelYear" class="form-control">
+                     <label for ="dailyPrice">Günlük Kiralama Ücreti : </label>
+                     <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control">
+                     <label for ="findeks">Findeks Puanı : </label>
+                     <input type="number" id="findeks" formControlName="findeks" class="form-control">
+                     <label for ="description">Açıklama : </label>
+                     <input type="text" id="description" formControlName="description" class="form-control">
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                    <button class="btn btn-fill btn-success"  (click)="add()">Ekle</button>
+                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Kapat</button>
+                 </div>
+             </form>
+         </div>
+        
+     </div>
+    </div>
+</div>
+
+</div>
+
+
+<div   class="modal fade" id="carImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><!--ImageModel-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Araç Resimleri</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="formFileSm" class="form-label">Small file input example</label>
+                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                <a class="btn btn-success">Ekle</a>
+              </div>
+            
+            <div *ngFor="let image of carImages" class="card" style="width: 18rem;">
+                <img src="{{urlPath}}/{{image.imagePath}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  
+                  
+                  <a href="#" class="btn btn-danger">Sil</a>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div><!--ImageModel-->
+
+  <div   class="modal fade" id="carUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--updateModel-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Güncelle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+          <form [formGroup]="carForm">
+            <div class="mb-3">
+                <div class="form-group">
+                <label for ="brandId">Marka: </label>
+                <select id="brandId" formControlName="brandId" class="form-control">
+                    <option [ngValue]=brand.brandId *ngFor="let brand of brands">{{brand.brandName}}</option>
+                </select>
+                <label for ="colorId">Renk : </label>
+                <select id="colorId" formControlName="colorId" class="form-control">
+                   <option [ngValue]=color.colorId *ngFor="let color of colors">{{color.colorName}}</option>
+               </select>
+                <label for ="modelYear">Model Yılı : </label>
+                <input type="number" id="modelYear" formControlName="modelYear" class="form-control">
+                <label for ="dailyPrice">Günlük Kiralama Ücreti : </label>
+                <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control">
+                <label for ="findeks">Findeks Puanı : </label>
+                <input type="number" id="findeks" formControlName="findeks" class="form-control">
+                <label for ="description">Açıklama : </label>
+                <input type="text" id="description" formControlName="description" class="form-control">
+                </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+          <button type="button" (click)="updateCar()" class="btn btn-primary">Güncelle</button>
+        </div>
+      </div>
+    </div>
+  </div> <!--updateModel-->
